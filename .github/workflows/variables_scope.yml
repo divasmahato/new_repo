@@ -1,0 +1,31 @@
+name: Variable Scope Demo
+
+on: [push]
+
+env:
+  MY_WORKFLOW_VARIABLE: "This is a workflow-level variable"
+
+jobs:
+  example-job:
+    runs-on: ubuntu-latest
+
+    env:
+      MY_JOB_VARIABLE: "This is a job-level variable"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Step using all variable scopes
+        env:
+          MY_STEP_VARIABLE: "This is a step-level variable"
+        run: |
+          echo "Workflow Variable: $MY_WORKFLOW_VARIABLE"
+          echo "Job Variable: $MY_JOB_VARIABLE"
+          echo "Step Variable: $MY_STEP_VARIABLE"
+
+      - name: Step without step-level variable
+        run: |
+          echo "Workflow Variable: $MY_WORKFLOW_VARIABLE"
+          echo "Job Variable: $MY_JOB_VARIABLE"
+          echo "Step Variable: $MY_STEP_VARIABLE (should be empty or undefined)"
