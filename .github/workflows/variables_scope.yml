@@ -29,3 +29,22 @@ jobs:
           echo "Workflow Variable: $MY_WORKFLOW_VARIABLE"
           echo "Job Variable: $MY_JOB_VARIABLE"
           echo "Step Variable: $MY_STEP_VARIABLE (should be empty or undefined)"
+
+  job-one:
+    runs-on: ubuntu-latest
+    env:
+      MY_JOB_VARIABLE: "Job One Variable"
+    steps:
+      - name: Step in Job One
+        run: |
+          echo "Job One - Workflow Variable: $MY_WORKFLOW_VARIABLE"
+          echo "Job One - Job Variable: $MY_JOB_VARIABLE"
+
+  job-two:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Step in Job Two
+        run: |
+          echo "Job Two - Workflow Variable: $MY_WORKFLOW_VARIABLE"
+          echo "Job Two - Job Variable: $MY_JOB_VARIABLE (should be empty)"
+
