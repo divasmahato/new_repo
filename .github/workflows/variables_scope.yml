@@ -33,12 +33,19 @@ jobs:
   job-one:
     runs-on: ubuntu-latest
     env:
-      MY_JOB_VARIABLE: "Job One Variable"
+      MY_OVERRIDE_VARIABLE: "Job Level"
+
     steps:
-      - name: Step in Job One
+      - name: Step with override
+        env:
+          MY_OVERRIDE_VARIABLE: "Step Level"
         run: |
-          echo "Job One - Workflow Variable: $MY_WORKFLOW_VARIABLE"
-          echo "Job One - Job Variable: $MY_JOB_VARIABLE"
+          echo "Override Variable: $MY_OVERRIDE_VARIABLE"
+
+      - name: Step without override
+        run: |
+          echo "Override Variable: $MY_OVERRIDE_VARIABLE"
+
 
   job-two:
     runs-on: ubuntu-latest
